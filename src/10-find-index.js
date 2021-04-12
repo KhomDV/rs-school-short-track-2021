@@ -12,29 +12,24 @@
  *
  */
 function findIndex(array, value) {
-  let ind = false;
-  const qw = array.some((item, index) => {
-    ind = index;
-    return item === value;
-  });
+  let indBeg = 0;
+  let indEnd = array.length - 1;
 
-  if (qw) {
-    return ind;
+  if (array[indBeg] === value) return indBeg;
+  if (array[indEnd] === value) return indEnd;
+
+  while (indBeg <= indEnd) {
+    const cut = Math.round((indEnd + indBeg) / 2);
+    if (array[cut] === value) {
+      return cut;
+    }
+    if (array[cut] > value) {
+      indBeg = cut + 1;
+    } else {
+      indEnd = cut - 1;
+    }
   }
-
-  // function isBiggerThan10(element, index, array) {
-  //   return element > 10;
-  // }
-  // [2, 5, 8, 1, 4].some(isBiggerThan10);  // false
-  // [12, 5, 8, 1, 4].some(isBiggerThan10);
-  // if (array.includes(value)) {
-  //   for (let i = 0; i < array.length; i++) {
-  //     if (array[i] === value) {
-  //       return (i);
-  //     }
-  //   }
-  // }
-  return false;
+  return -1;
 }
 
 module.exports = findIndex;
